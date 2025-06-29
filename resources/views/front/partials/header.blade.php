@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
+                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
                                     <small class="text-muted">Admin</small>
                                 </div>
                             </div>
@@ -81,10 +81,20 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
+                        <form class="dropdown-item" action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <a class="dropdown-item" href="javascript:{}"
+                                onclick="this.closest('form').submit();return false;">
+
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </a>
+                        </form>
+
+                        {{-- <a class="dropdown-item" href="auth-login-basic.html">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Log Out</span>
-                        </a>
+                        </a> --}}
                     </li>
                 </ul>
             </li>

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // Front Design
 Route::prefix('front')->name('front.')->group(function(){
 
-Route::get('/',FrontHomeController::class)->name('index');
+Route::get('/',FrontHomeController::class)->middleware('auth')->name('index');
 Route::view('/login', 'front.auth.login');
 Route::view('/register', 'front.auth.register');
 Route::view('/forget-password', 'front.auth.forget-password');
@@ -28,9 +28,9 @@ Route::view('/forget-password', 'front.auth.forget-password');
 
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 

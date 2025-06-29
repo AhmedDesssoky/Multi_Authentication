@@ -1,4 +1,4 @@
-@section('title', 'Front Login Page')
+@section('title', 'Reset Password Page')
 <!DOCTYPE html>
 
 <html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default"
@@ -10,35 +10,30 @@
 
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner">
-                <!-- Login -->
+            <div class="authentication-inner py-4">
+                <!-- Forgot Password -->
                 <div class="card">
                     <div class="card-body">
                         @include('front.partials.authLogo')
+                        <h4 class="mb-2">Reset Password 🔒</h4>
 
-                        <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-                        <p class="mb-4">Please sign-in to your account and start the adventure</p>
-                        <!-- Session Status -->
-                        <x-auth-session-status class="mb-4" :status="session('status')" />
-                        <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('password.store') }}">
                             @csrf
+
+                            <!-- Password Reset Token -->
+                            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
                             {{-- Email --}}
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" name="email"
-                                    value="{{ old('email') }}" placeholder="Enter your email" />
+                                    value="{{ $request->email }}" placeholder="Enter your email" />
                                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
 
                             </div>
                             {{-- password --}}
                             <div class="mb-3 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-
-                                    <label class="form-label" for="password">Password</label>
-                                    <a href="{{ route('password.request') }}">
-                                        <small>Forgot Password?</small>
-                                    </a>
-                                </div>
+                                <label class="form-label" for="password">Password</label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
@@ -48,27 +43,25 @@
                                 <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
 
                             </div>
-                            {{-- Remember Me  --}}
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input name="remember" class="form-check-input" type="checkbox" id="remember-me" />
-                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                            {{-- Confirm password --}}
+                            <div class="mb-3 form-password-toggle">
+                                <label class="form-label" for="password">Confirm Password</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" id="password" class="form-control"
+                                        name="password_confirmation"
+                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                        aria-describedby="password" />
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
+                                <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
+
                             </div>
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-                            </div>
+                            <button class="btn btn-primary d-grid w-100">Reset Password</button>
                         </form>
 
-                        <p class="text-center">
-                            <span>New on our platform?</span>
-                            <a href="{{ route('register') }}">
-                                <span>Create an account</span>
-                            </a>
-                        </p>
                     </div>
                 </div>
-                <!-- /Login -->
+                <!-- /Forgot Password -->
             </div>
         </div>
     </div>
